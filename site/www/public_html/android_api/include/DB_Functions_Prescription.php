@@ -173,6 +173,30 @@ WHERE m.medicine_id = ma.medicine_id and m.medicine_data_id = $medicineId;");
         return $result;
     }
     
+    public function getTests($historyId) {
+        $result = mysqli_query($this->mysqli, "SELECT * from tests where history_id = $historyId;");
+        $rows = array();
+        while ($r = mysqli_fetch_assoc($result)) {
+            $rows[] = $r;
+        }
+        return $rows;
+    }
+
+    public function saveTest($historyId, $test) {
+        $result = mysqli_query($this->mysqli, "insert into tests (history_id,tests) values($historyId,'$test');");
+        if ($result == true) {
+            $testId = mysqli_insert_id($this->mysqli);
+            return $testId;
+        } else {
+            return false;
+        }
+    }
+    
+    public function getTest($testId) {
+        $result = mysqli_query($this->mysqli, "select * from tests where tests_id = $testId;");
+        $result = mysqli_fetch_array($result);
+        return $result;
+    }
 }
 
 ?>

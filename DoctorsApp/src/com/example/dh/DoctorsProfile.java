@@ -39,7 +39,7 @@ public class DoctorsProfile extends Fragment {
 
 		sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
 		userName.setTypeface(sofiaPro);
-		userName.setText(sp.getString("user_name", "Suryansh Shukla"));
+		userName.setText(sp.getString(getString(R.string.sp_doctor_name), "Suryansh Shukla"));
 		address.setTypeface(sofiaPro);
 		specialization.setTypeface(sofiaPro);
 		experience.setTypeface(sofiaPro);

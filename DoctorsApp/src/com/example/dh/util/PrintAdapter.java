@@ -1,11 +1,17 @@
 package com.example.dh.util;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import com.erxproject.erx.model.Doctor;
+import com.erxproject.erx.model.Patient;
+import com.erxproject.erx.model.Prescription;
+import com.erxproject.erx.model.prescription.Disease;
+import com.erxproject.erx.model.prescription.Parameter;
+import com.erxproject.erx.model.prescription.PrescriptionMedicine;
+import com.erxproject.erx.model.prescription.Symptom;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -13,11 +19,8 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
-import android.graphics.pdf.PdfDocument.Page;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.CancellationSignal;
-import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.print.PageRange;
 import android.print.PrintAttributes;
@@ -38,7 +41,7 @@ public class PrintAdapter extends PrintDocumentAdapter {
 	public PrintAdapter(Context context) {
 		super();
 		this.context = context.getApplicationContext();
-		// totalPages = compute
+		//totalPages = compute
 	}
 
 	@Override
@@ -98,7 +101,7 @@ public class PrintAdapter extends PrintDocumentAdapter {
 			final WriteResultCallback callback) {
 		// Iterate over each page of the document,
 		// check if it's in the output range.
-		// for (int i = 0; i < totalPages; i++) {
+		//for (int i = 0; i < totalPages; i++) {
 		for (int i = 0; i < 1; i++) {
 			// Check to see if this page is in the output range.
 			if (containsPage(pageRanges, i)) {
@@ -122,12 +125,10 @@ public class PrintAdapter extends PrintDocumentAdapter {
 				mPdfDocument.finishPage(page);
 			}
 		}
-
+		
 		// Write PDF document to file
 		try {
-			// File file = new
-			// File(Environment.getExternalStoragePublicDirectory(null),
-			// "DemoFile.jpg");
+			//File file = new File(Environment.getExternalStoragePublicDirectory(null), "DemoFile.jpg");
 			mPdfDocument.writeTo(new FileOutputStream(destination
 					.getFileDescriptor()));
 		} catch (IOException e) {
@@ -172,63 +173,108 @@ public class PrintAdapter extends PrintDocumentAdapter {
 		Paint paint = new Paint();
 		paint.setColor(Color.BLACK);
 		paint.setTextSize(30);
-
-		canvas.drawText("Doctor: " + "Randall Eggert", leftMargin,
-				titleBaseLine += 30, paint);
-
-		canvas.drawText("Patient: " + "Rachel Green", leftMargin,
-				titleBaseLine += 30, paint);
-		canvas.drawText("Prescription", leftMargin, titleBaseLine += 30, paint);
-
-		paint.setTextSize(13);
-		canvas.drawText("Medicines", leftMargin, titleBaseLine += 30, paint);
-
-		paint.setTextSize(11);
-		int j = 1;
-		String morning = "", afternoon = "", evening = "", night = "";
-		Boolean isFirst = true;
-
-		morning = "Morning";
-		evening = ", Evening";
-
-		String medicineDetails = String.format(j + ". %s: %s%s%s%s", "Crocin",
-				morning, afternoon, evening, night);
-		canvas.drawText(medicineDetails, leftMargin, titleBaseLine += 22, paint);
-		j++;
-
-		paint.setTextSize(13);
-		canvas.drawText("Symptoms", leftMargin, titleBaseLine += 30, paint);
-		paint.setTextSize(11);
-
-		j = 1;
-
-		canvas.drawText(
-				j + ". " + "Cough" + "\nDetails: "
-						+ "Having cough since past three days", leftMargin,
-				titleBaseLine += 22, paint);
-
-		paint.setTextSize(13);
-		canvas.drawText("Parameters", leftMargin, titleBaseLine += 30, paint);
-		paint.setTextSize(11);
-
-		j = 1;
-
-			canvas.drawText(j + ". " + "Temperature" + ": "
-					+ "98", leftMargin,
-					titleBaseLine += 22, paint);
-
-		paint.setTextSize(13);
-		canvas.drawText("Disease Diagnosed", leftMargin, titleBaseLine += 30,
-				paint);
-		paint.setTextSize(11);
-
-		j = 1;
-
-
-			canvas.drawText(j + ". " + "Viral Infection", leftMargin,
-					titleBaseLine += 22, paint);
-			j++;
+		Doctor doctor = Doctor.get(context);
+		canvas.drawText( "Doctor: " + doctor.getName(), leftMargin, titleBaseLine+=30, paint);
+		Patient patient = Patient.get(context);
+		canvas.drawText( "Patient: " + patient.getName(), leftMargin, titleBaseLine+=30, paint);
+		canvas.drawText("Prescription", leftMargin, titleBaseLine+=30, paint);
+				
+		Prescription prescription = Prescription.get(context);
 		
-
-	}
+		ArrayList<PrescriptionMedicine> medicines = prescription.getMedicine();
+		paint.setTextSize(13);
+		canvas.drawText("Medicines", leftMargin, titleBaseLine+=30, paint);
+		
+		
+		Iterator<PrescriptionMedicine> medicineIterator = medicines.iterator();
+		PrescriptionMedicine medicine;
+		paint.setTextSize(11);
+		int j=1;
+		String morning = "", afternoon = "", evening= "", night = "";
+		Boolean isFirst = true;
+		while(medicineIterator.hasNext())
+		{
+			medicine = medicineIterator.next();
+			
+			if(medicine.isMorning())
+			{
+				morning = "Morning";
+				isFirst = false;
+			}
+			if(medicine.isAfternoon()&&isFirst)
+			{
+				afternoon = "Afternoon";
+				isFirst = false;
+			}
+			else if(medicine.isAfternoon()) 
+			{
+				afternoon = ", Afternoon";
+			}
+			if(medicine.isEvening()&&isFirst)
+			{
+				evening = "Evening";
+				isFirst = false;
+			}
+			else if(medicine.isEvening())
+			{
+				evening = ", Evening";
+			}
+			if(medicine.isNight()&&isFirst)
+			{
+				night = "Night";
+				isFirst = false;
+			}
+			else if (medicine.isNight())
+			{
+				night = ", Night";
+			}
+			
+			String medicineDetails  = String.format(j+ ". %s: %s%s%s%s", medicine.getMedicineName(),morning,afternoon,evening,night);
+			canvas.drawText(medicineDetails, leftMargin, titleBaseLine +=22, paint);
+			j++;
+		}
+		
+		ArrayList<Symptom> symptoms = prescription.getSymptoms();
+		paint.setTextSize(13);
+		canvas.drawText("Symptoms", leftMargin, titleBaseLine+=30, paint);
+		paint.setTextSize(11);
+		Iterator<Symptom> symptomIterator = symptoms.iterator();
+		j=1;
+		Symptom symptom;
+		while(symptomIterator.hasNext())
+		{
+			symptom = symptomIterator.next();
+			canvas.drawText(j + ". " + symptom.getName() + "\nDetails: " + symptom.getDetails(),leftMargin, titleBaseLine+=22, paint);
+			j++;
+		}
+		
+		ArrayList<Parameter> paramters = prescription.getParameters();
+		paint.setTextSize(13);
+		canvas.drawText("Parameters", leftMargin, titleBaseLine+=30, paint);
+		paint.setTextSize(11);
+		Iterator<Parameter> parameterIterator = paramters.iterator();
+		j=1;
+		Parameter parameter;
+		while(parameterIterator.hasNext())
+		{
+			parameter = parameterIterator.next();
+			canvas.drawText(j + ". " + parameter.getmParameterType() + ": " + parameter.getmParameterValue(),leftMargin, titleBaseLine+=22, paint);
+			j++;
+		}
+		
+		ArrayList<Disease> diseases = prescription.getDisease();
+		paint.setTextSize(13);
+		canvas.drawText("Disease Diagnosed", leftMargin, titleBaseLine+=30, paint);
+		paint.setTextSize(11);
+		Iterator<Disease> diseaseIterator = diseases.iterator();
+		j=1;
+		Disease disease;
+		while(diseaseIterator.hasNext())
+		{
+			disease = diseaseIterator.next();
+			canvas.drawText(j + ". " + disease.getDisease(),leftMargin, titleBaseLine+=22, paint);
+			j++;
+		}
+				
+	}	
 }

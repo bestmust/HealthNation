@@ -22,6 +22,7 @@ public class Prescription {
 	private ArrayList<Parameter> mParamters;
 	private ArrayList<Disease> mDiseases;
 	private ArrayList<PrescriptionMedicine> mMedicine;
+	private ArrayList<Test> mTests;
 	private Note mNote;
 	private static Prescription mPrescription;
 	private PrescriptionController prescriptionController;
@@ -124,6 +125,23 @@ public class Prescription {
 			}
 		}
 		return mMedicine;
+	}
+	
+
+	public ArrayList<Test> getTests() {
+		if(mTests==null)
+		{
+			try {
+				mTests = prescriptionController.getTestList(historyId);
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return mTests;
 	}
 
 	public Note getNote() {

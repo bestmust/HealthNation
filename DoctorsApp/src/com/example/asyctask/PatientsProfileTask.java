@@ -16,6 +16,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import com.erxproject.erx.model.Patient;
 import com.example.datamodels.PatientsParameterModel;
 import com.example.datamodels.serialized.LoginResponse;
 import com.example.dh.MainActivity;
@@ -37,6 +38,7 @@ import android.widget.EditText;
 
 public class PatientsProfileTask extends AsyncTask<PatientsParameterModel, String, String>{
 
+	Patient p;
 	Activity activity;
 	String jsonResponseString;
 	ProgressDialog pd;
@@ -59,7 +61,6 @@ public class PatientsProfileTask extends AsyncTask<PatientsParameterModel, Strin
 		LoginResponse response = gson.fromJson(result, LoginResponse.class);
 
 		pd.dismiss();
-
 		if (response.success == 1) {
 		Intent i = new Intent(activity, PatientsProfile.class);
 		activity.startActivity(i);
@@ -71,6 +72,8 @@ public class PatientsProfileTask extends AsyncTask<PatientsParameterModel, Strin
 		ed.putInt(activity.getString(R.string.sp_patient_id), response.user.patient_id);
 		ed.putInt(activity.getString(R.string.sp_patient_person_id), response.user.person_id);
 		ed.apply();
+		p = Patient.get(activity);
+		p.setName(response.user.name);
 		//mLogin.overridePendingTransition(R.anim.side_down, R.anim.slide_up);
 		} else {
 			patientsId = (EditText)activity.findViewById(R.id.editTextPatientsUserName);

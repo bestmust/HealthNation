@@ -3,6 +3,9 @@ package com.example.customadapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.erxproject.erx.controller.PrescriptionController;
+import com.erxproject.erx.model.Prescription;
+import com.erxproject.erx.model.prescription.Test;
 import com.example.datamodels.ListDataDisease;
 import com.example.datamodels.ListDataParameters;
 import com.example.datamodels.ListDataSymptoms;
@@ -30,7 +33,8 @@ public class CustomListAddTests extends BaseAdapter {
 	private LayoutInflater inflater;
 	private List<ListDataTests> movieItems;
 	ArrayList<String> arrayListMedicines ;
-
+	PrescriptionController pc;
+	Prescription p;
 
 	public CustomListAddTests(Context context, ArrayList<ListDataTests> myList) {
 		inflater = LayoutInflater.from(context);
@@ -68,8 +72,8 @@ public class CustomListAddTests extends BaseAdapter {
 
 		final ViewHolderMainHome holderMain;
 		arrayListMedicines = new ArrayList<String>();
-		final ListDataTests objListDataTests =new ListDataTests();
-		if(convertView == null)
+		final ListDataTests objListDataTests = movieItems.get(position);
+      		if(convertView == null)
 		{
 			holderMain = new ViewHolderMainHome();
 			convertView = inflater.inflate(R.layout.add_tests_value, null);
@@ -94,7 +98,7 @@ public class CustomListAddTests extends BaseAdapter {
 
 
 		holderMain.textViewCounter.setText(m.getTitle());
-
+		holderMain.editTextTestname.setText(m.getTestName());
 
 		holderMain.buttonDone.setTag(position);
 		holderMain.buttonDone.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -121,11 +125,14 @@ public class CustomListAddTests extends BaseAdapter {
 
 						objListDataTests.setTestName(holderMain.editTextTestname.getText().toString());
 						
+						pc = new PrescriptionController(activity);
+						p = Prescription.get(activity);
+						int testId = pc.saveTest(p.getHistoryId(),objListDataTests.getTestName());
+						Test t = pc.getTest(testId);
+						p.getTests().add(t);
+						
 						disableFields();
-
 					}
-
-
 				}else{
 					//holderMain.autoTextView.setEnabled(true);
 					enableFields();

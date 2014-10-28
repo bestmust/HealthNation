@@ -16,9 +16,12 @@ import com.erxproject.erx.model.prescription.Disease;
 import com.erxproject.erx.model.prescription.Parameter;
 import com.erxproject.erx.model.prescription.PrescriptionMedicine;
 import com.erxproject.erx.model.prescription.Symptom;
+import com.erxproject.erx.model.prescription.Test;
 import com.example.dh.R;
+import com.google.gson.Gson;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 public class PrescriptionController {
@@ -28,7 +31,8 @@ public class PrescriptionController {
 	String site;
 	String prescriptionExtension;
 	String debuggerExtension;
-
+	Gson gson = new Gson();
+	
 	public PrescriptionController(Context applicationContext) {
 		mContext = applicationContext.getApplicationContext();
 		jsonParser = new JSONParser();
@@ -526,6 +530,108 @@ public class PrescriptionController {
 						jsonParameter.getString("evening"),
 						jsonParameter.getString("night"));
 				return p;
+			} else {
+				return null;
+			}
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+
+	}
+	
+	public ArrayList<Test> getTestList(int historyId)
+			throws NumberFormatException, JSONException {
+		JSONObject json, jsonTest;
+		JSONArray jsonTestList;
+		Test tempTest;
+		ArrayList<Test> testList = new ArrayList<Test>();
+		int length;
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", mContext
+				.getString(R.string.tag_get_tests_list)));
+		params.add(new BasicNameValuePair(mContext
+				.getString(R.string.key_history_id), "" + historyId));
+
+		String request = gson.toJson(params);
+		Log.d("getTestList request",request );
+		
+		json = jsonParser.getJSONFromUrl(site + prescriptionExtension, params);
+
+		if (Integer.parseInt(json.getString("success")) == 1) {
+			jsonTestList = json.getJSONArray("tests");
+			length = jsonTestList.length();
+
+			for (int i = 0; i < length; i++) {
+				jsonTest = jsonTestList.getJSONObject(i);
+				tempTest = new Test(jsonTest.getString("tests"),
+						jsonTest.getInt("tests_id"),
+						jsonTest.getInt("history_id"));
+				testList.add(tempTest);
+			}
+			return testList;
+		} else {
+			return testList;
+		}
+
+	}
+
+	public int saveTest(int historyId, String test) {
+		JSONObject json;
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", mContext
+				.getString(R.string.tag_save_test)));
+		params.add(new BasicNameValuePair(mContext
+				.getString(R.string.key_history_id), "" + historyId));
+		params.add(new BasicNameValuePair(mContext
+				.getString(R.string.key_test), "" + test));
+		
+		String request = gson.toJson(params);
+		Log.d("saveTest request",request );
+
+		json = jsonParser.getJSONFromUrl(site + prescriptionExtension, params);
+
+		try {
+			if (Integer.parseInt(json.getString("success")) == 1) {
+				int testsId = json.getInt("test_id");
+				return testsId;
+			} else {
+				return -1;
+			}
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return -1;
+	}
+
+	public Test getTest(int testId) {
+		JSONObject json, jsonTest;
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", mContext
+				.getString(R.string.tag_get_test_from_id)));
+		params.add(new BasicNameValuePair(mContext
+				.getString(R.string.key_test_id), "" + testId));
+		
+		String request = gson.toJson(params);
+		Log.d("getTest request",request );
+		
+		json = jsonParser.getJSONFromUrl(site + prescriptionExtension, params);
+
+		try {
+			if (Integer.parseInt(json.getString("success")) == 1) {
+				jsonTest = json.getJSONObject("test");
+				Test t = new Test(jsonTest.getString("tests"),
+						jsonTest.getInt("tests_id"),
+						jsonTest.getInt("history_id"));
+				return t;
 			} else {
 				return null;
 			}

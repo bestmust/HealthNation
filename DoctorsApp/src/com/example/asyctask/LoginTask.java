@@ -15,6 +15,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+
+import com.erxproject.erx.model.Doctor;
 import com.example.dh.R;
 import com.example.datamodels.LoginModel;
 import com.example.datamodels.serialized.LoginResponse;
@@ -35,6 +37,7 @@ import android.widget.EditText;
 
 public class LoginTask extends AsyncTask<LoginModel, String, String> {
 
+	Doctor d;
 	EditText username, password;
 	Activity mLogin;
 	ProgressDialog pd;
@@ -69,6 +72,8 @@ public class LoginTask extends AsyncTask<LoginModel, String, String> {
 		ed.putString(mLogin.getString(R.string.sp_doctor_name), response.user.name);
 		ed.putInt(mLogin.getString(R.string.sp_doctor_doctor_id), response.user.doctor_id);
 		ed.apply();
+		d = Doctor.get(mLogin);
+		d.setName(response.user.name);
 		//mLogin.overridePendingTransition(R.anim.side_down, R.anim.slide_up);
 		} else {
 			username.setError("Enter valid details");

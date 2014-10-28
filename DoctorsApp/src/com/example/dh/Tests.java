@@ -2,6 +2,8 @@ package com.example.dh;
 
 import java.util.ArrayList;
 
+import com.erxproject.erx.model.Prescription;
+import com.erxproject.erx.model.prescription.Test;
 import com.example.customadapter.CustomListAddSymptoms;
 import com.example.customadapter.CustomListAddTests;
 import com.example.datamodels.ListDataSymptoms;
@@ -37,6 +39,7 @@ import android.widget.TextView;
 @SuppressLint("NewApi")
 public class Tests extends Fragment implements OnClickListener {
 
+	Prescription p;
 	String addedTest;
 	ListView TestList;
 	// Defined Array values to show in ListView
@@ -46,7 +49,7 @@ public class Tests extends Fragment implements OnClickListener {
 	ArrayList<ListDataTests> myList = new ArrayList<ListDataTests>();
 	CustomListAddTests adapter;
 	ListDataTests objDataTests;
-	int counter=1;
+	int counter=0;
 
 
 	@Override
@@ -91,22 +94,37 @@ public class Tests extends Fragment implements OnClickListener {
 	private void init() {
 		// TODO Auto-generated method stub
 
-		objDataTests =new ListDataTests();
-		objDataTests.setTitle("1");
-		myList.add(objDataTests);
-
-
+		p = Prescription.get(getActivity());
+		
+		ArrayList<Test> tests = p.getTests();
+		myList.clear();
+		counter = 0;
+		for( Test t: tests) {
+			objDataTests =new ListDataTests();
+			objDataTests.setTitle("" + (counter+1));
+			objDataTests.setTestName(t.getName());
+			myList.add(objDataTests);
+			counter++;
+		}
+		
+		if(myList.size() == 0) {
+			getDataList();
+		}
+		
 	}
 	private void getDataList() {
 		// TODO Auto-generated method stub
 		if(counter!=0)
 		{		
 			objDataTests =new ListDataTests();
+			
+			objDataTests.setTitle(""+(counter+1));
+			myList.add(counter, objDataTests);
 			counter++;
-			objDataTests.setTitle(""+counter);
-			myList.add(counter-1, objDataTests);
 		}
-		adapter.notifyDataSetChanged();
+		if(myList.size() > 2) {
+			adapter.notifyDataSetChanged();
+		}
 	}
 
 

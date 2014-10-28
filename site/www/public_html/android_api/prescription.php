@@ -258,6 +258,47 @@ if (isset($_POST['tag']) && $_POST['tag'] != '') {
             echo json_encode($response);
         }else {
             $response["error"] = 1;
+            $response["error_msg"] = "Error in getting the medicine.";
+            echo json_encode($response);
+        }
+    }
+    else if ($tag == 'get_tests_list') {
+        $historyId = $_POST["history_id"];
+        $tests = $dbFunctionsPrescription->getTests($historyId);
+        
+        if($tests!= false) {
+            $response["success"] = 1;
+            $response["tests"] = $tests;
+            echo json_encode($response);
+        }else {
+            $response["error"] = 1;
+            $response["error_msg"] = "Error in getting tests.";
+            echo json_encode($response);
+        }
+    } else if ($tag == 'save_test') {
+        $historyId = $_POST["history_id"];
+        $test = $_POST["test"];
+        $testId = $dbFunctionsPrescription->saveTest($historyId,$test);
+        
+        if($testId!= false) {
+            $response["success"] = 1;
+            $response["test_id"] = $testId;
+            echo json_encode($response);
+        }else {
+            $response["error"] = 1;
+            $response["error_msg"] = "Error in saving symptom.";
+            echo json_encode($response);
+        }
+    } else if ($tag == 'get_test_from_id') {
+        $testId = $_POST["test_id"];
+        $test = $dbFunctionsPrescription->getTest($testId);
+        
+        if($test!= false) {
+            $response["success"] = 1;
+            $response["test"] = $test;
+            echo json_encode($response);
+        }else {
+            $response["error"] = 1;
             $response["error_msg"] = "Error in getting the symptom.";
             echo json_encode($response);
         }
