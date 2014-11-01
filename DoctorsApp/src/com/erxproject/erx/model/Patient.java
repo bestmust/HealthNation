@@ -3,9 +3,9 @@ package com.erxproject.erx.model;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.example.dh.R;
-
 import android.content.Context;
+
+import com.example.dh.R;
 
 public class Patient {
 

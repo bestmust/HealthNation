@@ -7,9 +7,14 @@ import org.json.JSONObject;
 
 import android.content.Context;
 
-import com.example.dh.R;
 import com.erxproject.erx.controller.PrescriptionController;
-import com.erxproject.erx.model.prescription.*;
+import com.erxproject.erx.model.prescription.Disease;
+import com.erxproject.erx.model.prescription.Note;
+import com.erxproject.erx.model.prescription.Parameter;
+import com.erxproject.erx.model.prescription.PrescriptionMedicine;
+import com.erxproject.erx.model.prescription.Symptom;
+import com.erxproject.erx.model.prescription.Test;
+import com.example.dh.R;
 
 public class Prescription {
 
@@ -60,9 +65,8 @@ public class Prescription {
 	}
 
 	public ArrayList<Symptom> getSymptoms() {
-		
-		if(mSymptoms == null)
-		{
+
+		if (mSymptoms == null) {
 			try {
 				mSymptoms = prescriptionController.getSymptomList(historyId);
 			} catch (NumberFormatException e) {
@@ -77,9 +81,8 @@ public class Prescription {
 	}
 
 	public ArrayList<Parameter> getParameters() {
-		
-		if(mParamters == null)
-		{
+
+		if (mParamters == null) {
 			try {
 				mParamters = prescriptionController.getParameterList(historyId);
 			} catch (NumberFormatException e) {
@@ -90,16 +93,16 @@ public class Prescription {
 				e.printStackTrace();
 			}
 		}
-		
+
 		return mParamters;
 	}
 
 	public ArrayList<Disease> getDisease() {
-		
-		if(mDiseases == null)
-		{
+
+		if (mDiseases == null) {
 			try {
-				mDiseases = prescriptionController.getDiseasesDiagnosedList(historyId);
+				mDiseases = prescriptionController
+						.getDiseasesDiagnosedList(historyId);
 			} catch (NumberFormatException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -112,10 +115,10 @@ public class Prescription {
 	}
 
 	public ArrayList<PrescriptionMedicine> getMedicine() {
-		if(mMedicine==null)
-		{
+		if (mMedicine == null) {
 			try {
-				mMedicine = prescriptionController.getPrescriptionMedicineList(historyId);
+				mMedicine = prescriptionController
+						.getPrescriptionMedicineList(historyId);
 			} catch (NumberFormatException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -126,11 +129,9 @@ public class Prescription {
 		}
 		return mMedicine;
 	}
-	
 
 	public ArrayList<Test> getTests() {
-		if(mTests==null)
-		{
+		if (mTests == null) {
 			try {
 				mTests = prescriptionController.getTestList(historyId);
 			} catch (NumberFormatException e) {

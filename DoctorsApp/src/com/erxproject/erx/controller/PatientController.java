@@ -1,21 +1,16 @@
 package com.erxproject.erx.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
 
-import com.example.dh.R;
-import com.erxproject.erx.library.DatabaseHandler;
 import com.erxproject.erx.library.JSONParser;
-import com.erxproject.erx.model.Doctor;
-import com.erxproject.erx.model.Patient;
+import com.example.dh.R;
 
 public class PatientController {
 	private JSONParser jsonParser;

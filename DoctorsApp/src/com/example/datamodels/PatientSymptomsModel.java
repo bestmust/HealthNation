@@ -1,7 +1,7 @@
 package com.example.datamodels;
 
 public class PatientSymptomsModel {
-	
+
 	static String SymptomsName;
 
 	public static String getSymptomsName() {

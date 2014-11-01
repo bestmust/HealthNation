@@ -1,7 +1,7 @@
 package com.example.datamodels;
 
 public class PatientsDiseaseDiagnosedModel {
-	
+
 	static String DiseaseDiagnosed;
 
 	public static String getDiseaseDiagnosed() {
@@ -11,7 +11,5 @@ public class PatientsDiseaseDiagnosedModel {
 	public static void setDiseaseDiagnosed(String diseaseDiagnosed) {
 		DiseaseDiagnosed = diseaseDiagnosed;
 	}
-	
-	
 
 }

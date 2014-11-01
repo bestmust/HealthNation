@@ -16,15 +16,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
-import com.erxproject.erx.model.Doctor;
-import com.example.dh.R;
-import com.example.datamodels.LoginModel;
-import com.example.datamodels.serialized.LoginResponse;
-//import com.example.datamodels.serialized.LoginResponse;
-import com.example.dh.Login;
-import com.example.dh.MainActivity;
-import com.example.dh.util.Constants;
-import com.google.gson.Gson;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -34,6 +25,17 @@ import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.EditText;
+
+import com.erxproject.erx.model.Doctor;
+import com.example.datamodels.LoginModel;
+import com.example.datamodels.serialized.LoginResponse;
+import com.example.dh.Login;
+import com.example.dh.MainActivity;
+import com.example.dh.R;
+import com.example.dh.util.Constants;
+import com.google.gson.Gson;
+
+//import com.example.datamodels.serialized.LoginResponse;
 
 public class LoginTask extends AsyncTask<LoginModel, String, String> {
 
@@ -63,18 +65,23 @@ public class LoginTask extends AsyncTask<LoginModel, String, String> {
 		pd.dismiss();
 
 		if (response.success == 1) {
-		Intent i = new Intent(mLogin, MainActivity.class);
-		mLogin.startActivity(i);
-		sp = PreferenceManager.getDefaultSharedPreferences(mLogin);
-		Editor ed = sp.edit();
-		ed.putString(mLogin.getString(R.string.sp_doctor_user_name), objLoginModel.getUserName());
-		ed.putString(mLogin.getString(R.string.sp_doctor_password), objLoginModel.getPassword());
-		ed.putString(mLogin.getString(R.string.sp_doctor_name), response.user.name);
-		ed.putInt(mLogin.getString(R.string.sp_doctor_doctor_id), response.user.doctor_id);
-		ed.apply();
-		d = Doctor.get(mLogin);
-		d.setName(response.user.name);
-		//mLogin.overridePendingTransition(R.anim.side_down, R.anim.slide_up);
+			Intent i = new Intent(mLogin, MainActivity.class);
+			mLogin.startActivity(i);
+			sp = PreferenceManager.getDefaultSharedPreferences(mLogin);
+			Editor ed = sp.edit();
+			ed.putString(mLogin.getString(R.string.sp_doctor_user_name),
+					objLoginModel.getUserName());
+			ed.putString(mLogin.getString(R.string.sp_doctor_password),
+					objLoginModel.getPassword());
+			ed.putString(mLogin.getString(R.string.sp_doctor_name),
+					response.user.name);
+			ed.putInt(mLogin.getString(R.string.sp_doctor_doctor_id),
+					response.user.doctor_id);
+			ed.apply();
+			d = Doctor.get(mLogin);
+			d.setName(response.user.name);
+			// mLogin.overridePendingTransition(R.anim.side_down,
+			// R.anim.slide_up);
 		} else {
 			username.setError("Enter valid details");
 			password.setError(response.error_msg);

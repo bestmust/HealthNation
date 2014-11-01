@@ -3,15 +3,14 @@ package com.example.datamodels;
 public class PatientsParameterModel {
 
 	private String ParameterName;
-	private String patientsName="";
-	private String patientsAddress="";
-	private String patientsContact="";
-	private String patientsLastVisited="";
-	private String patientsId="";
-	private String treatmentDate="";
-	private String prescriptionImage="";
-	
-	
+	private String patientsName = "";
+	private String patientsAddress = "";
+	private String patientsContact = "";
+	private String patientsLastVisited = "";
+	private String patientsId = "";
+	private String treatmentDate = "";
+	private String prescriptionImage = "";
+
 	public String getPrescriptionImage() {
 		return prescriptionImage;
 	}

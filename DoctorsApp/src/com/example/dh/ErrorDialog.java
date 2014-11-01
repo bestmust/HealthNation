@@ -9,7 +9,8 @@ import android.widget.TextView;
 
 public class ErrorDialog {
 
-	public static void ErrorDialogCreation(Context c,String titleDesc,String desc){
+	public static void ErrorDialogCreation(Context c, String titleDesc,
+			String desc) {
 
 		final Dialog dialog = new Dialog(c);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -17,7 +18,7 @@ public class ErrorDialog {
 		// Include dialog.xml file
 		dialog.setContentView(R.layout.custom_dialog);
 
-		TextView title = (TextView)dialog.findViewById(R.id.textTitleDialog);
+		TextView title = (TextView) dialog.findViewById(R.id.textTitleDialog);
 		TextView text = (TextView) dialog.findViewById(R.id.textViewDialog);
 		text.setText(desc);
 		title.setText(titleDesc);

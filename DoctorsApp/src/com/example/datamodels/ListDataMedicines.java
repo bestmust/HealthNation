@@ -2,12 +2,11 @@ package com.example.datamodels;
 
 import java.util.ArrayList;
 
-
 public class ListDataMedicines {
-	private String title, thumbnailUrl,medicineName,medicineDosage;
-	private boolean isMorning,isAfternoon,isEvening,isNight;
-	public static ArrayList<String> medicineList =new ArrayList<String>();
-	
+	private String title, thumbnailUrl, medicineName, medicineDosage;
+	private boolean isMorning, isAfternoon, isEvening, isNight;
+	public static ArrayList<String> medicineList = new ArrayList<String>();
+
 	/**
 	 * @return the medicineList
 	 */
@@ -25,70 +24,75 @@ public class ListDataMedicines {
 	}
 
 	/**
-	 * @param isGroupHeader the isGroupHeader to set
+	 * @param isGroupHeader
+	 *            the isGroupHeader to set
 	 */
 	public void setGroupHeader(boolean isGroupHeader) {
 		this.isGroupHeader = isGroupHeader;
 	}
 
 	public ListDataMedicines(String title) {
-		this(-1,title,null);
+		this(-1, title, null);
 		isGroupHeader = true;
-		this.title=title;
-	}	
+		this.title = title;
+	}
 
-	public ListDataMedicines(int icon,String medicineName, String medicineDosage) {
+	public ListDataMedicines(int icon, String medicineName,
+			String medicineDosage) {
 		super();
 		this.medicineName = medicineName;
 		this.medicineDosage = medicineDosage;
 	}
+
 	/**
 	 * @return the medicineName
 	 */
-	 public String getMedicineName() {
-		 return medicineName;
-	 }
+	public String getMedicineName() {
+		return medicineName;
+	}
 
-	 /**
-	  * @param medicineName the medicineName to set
-	  */
-	 public void setMedicineName(String medicineName) {
-		 this.medicineName = medicineName;
-		 medicineList.add(medicineName);
-	 }
+	/**
+	 * @param medicineName
+	 *            the medicineName to set
+	 */
+	public void setMedicineName(String medicineName) {
+		this.medicineName = medicineName;
+		medicineList.add(medicineName);
+	}
 
-	 /**
-	  * @return the medicineDosage
-	  */
-	 public String getMedicineDosage() {
-		 return medicineDosage;
-	 }
+	/**
+	 * @return the medicineDosage
+	 */
+	public String getMedicineDosage() {
+		return medicineDosage;
+	}
 
-	 /**
-	  * @param medicineDosage the medicineDosage to set
-	  */
-	 public void setMedicineDosage(String medicineDosage) {
-		 this.medicineDosage = medicineDosage;
-	 }
+	/**
+	 * @param medicineDosage
+	 *            the medicineDosage to set
+	 */
+	public void setMedicineDosage(String medicineDosage) {
+		this.medicineDosage = medicineDosage;
+	}
 
-	 public ListDataMedicines() {
-	 }
+	public ListDataMedicines() {
+	}
 
-	 public String getTitle() {
-		 return title;
-	 }
+	public String getTitle() {
+		return title;
+	}
 
-	 public void setTitle(String name) {
-		 this.title = name;
-	 }
+	public void setTitle(String name) {
+		this.title = name;
+	}
 
-	 public String getThumbnailUrl() {
-		 return thumbnailUrl;
-	 }
+	public String getThumbnailUrl() {
+		return thumbnailUrl;
+	}
 
-	 public void setThumbnailUrl(String thumbnailUrl) {
-		 this.thumbnailUrl = thumbnailUrl;
-	 }
+	public void setThumbnailUrl(String thumbnailUrl) {
+		this.thumbnailUrl = thumbnailUrl;
+	}
 
 	public boolean isEvening() {
 		return isEvening;
@@ -122,7 +126,4 @@ public class ListDataMedicines {
 		this.isNight = isNight;
 	}
 
-
 }
-
-

@@ -12,27 +12,22 @@ public class ParameterModel {
 	public String PrameterName;
 	public String PrameterValue;
 
-	Map<String,String> myMap1 = new HashMap<String, String>();
-	public static List<Map<String , String>> myMap  = new ArrayList<Map<String,String>>();
+	Map<String, String> myMap1 = new HashMap<String, String>();
+	public static List<Map<String, String>> myMap = new ArrayList<Map<String, String>>();
 
+	public void setPatameters(String parameterName, String parametervalue) {
 
-	public void setPatameters(String parameterName,String parametervalue){
-
-		myMap1.put("parametername",parameterName);
-		myMap1.put("parametervalue",parametervalue);
+		myMap1.put("parametername", parameterName);
+		myMap1.put("parametervalue", parametervalue);
 
 		myMap.add(myMap1);
-		Log.d("Hash map is", ""+myMap);
+		Log.d("Hash map is", "" + myMap);
 	}
 
-	public List<Map<String, String>>getparameters(){
+	public List<Map<String, String>> getparameters() {
 
 		return myMap;
 
 	}
-
-
-
-
 
 }

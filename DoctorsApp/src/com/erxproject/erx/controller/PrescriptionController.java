@@ -9,6 +9,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
+
 import com.erxproject.erx.library.JSONParser;
 import com.erxproject.erx.model.Prescription;
 import com.erxproject.erx.model.PrescriptionListItem;
@@ -20,10 +24,6 @@ import com.erxproject.erx.model.prescription.Test;
 import com.example.dh.R;
 import com.google.gson.Gson;
 
-import android.content.Context;
-import android.util.Log;
-import android.widget.Toast;
-
 public class PrescriptionController {
 
 	Context mContext;
@@ -32,7 +32,7 @@ public class PrescriptionController {
 	String prescriptionExtension;
 	String debuggerExtension;
 	Gson gson = new Gson();
-	
+
 	public PrescriptionController(Context applicationContext) {
 		mContext = applicationContext.getApplicationContext();
 		jsonParser = new JSONParser();
@@ -462,8 +462,9 @@ public class PrescriptionController {
 
 	}
 
-	public int savePrescriptionMedicine(int historyId, int medicineId, String medicineName, 
-			boolean morning, boolean afternoon, boolean evening, boolean night) {
+	public int savePrescriptionMedicine(int historyId, int medicineId,
+			String medicineName, boolean morning, boolean afternoon,
+			boolean evening, boolean night) {
 		JSONObject json;
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("tag", "save_prescription_medicine"));
@@ -543,7 +544,7 @@ public class PrescriptionController {
 		return null;
 
 	}
-	
+
 	public ArrayList<Test> getTestList(int historyId)
 			throws NumberFormatException, JSONException {
 		JSONObject json, jsonTest;
@@ -558,8 +559,8 @@ public class PrescriptionController {
 				.getString(R.string.key_history_id), "" + historyId));
 
 		String request = gson.toJson(params);
-		Log.d("getTestList request",request );
-		
+		Log.d("getTestList request", request);
+
 		json = jsonParser.getJSONFromUrl(site + prescriptionExtension, params);
 
 		if (Integer.parseInt(json.getString("success")) == 1) {
@@ -587,11 +588,11 @@ public class PrescriptionController {
 				.getString(R.string.tag_save_test)));
 		params.add(new BasicNameValuePair(mContext
 				.getString(R.string.key_history_id), "" + historyId));
-		params.add(new BasicNameValuePair(mContext
-				.getString(R.string.key_test), "" + test));
-		
+		params.add(new BasicNameValuePair(
+				mContext.getString(R.string.key_test), "" + test));
+
 		String request = gson.toJson(params);
-		Log.d("saveTest request",request );
+		Log.d("saveTest request", request);
 
 		json = jsonParser.getJSONFromUrl(site + prescriptionExtension, params);
 
@@ -619,10 +620,10 @@ public class PrescriptionController {
 				.getString(R.string.tag_get_test_from_id)));
 		params.add(new BasicNameValuePair(mContext
 				.getString(R.string.key_test_id), "" + testId));
-		
+
 		String request = gson.toJson(params);
-		Log.d("getTest request",request );
-		
+		Log.d("getTest request", request);
+
 		json = jsonParser.getJSONFromUrl(site + prescriptionExtension, params);
 
 		try {

@@ -3,7 +3,6 @@ package com.erxproject.erx.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -11,12 +10,12 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONObject;
 
+import android.content.Context;
+
 import com.erxproject.erx.library.DatabaseHandler;
 import com.erxproject.erx.library.JSONParser;
 import com.erxproject.erx.model.Doctor;
 import com.example.dh.R;
-
-import android.content.Context;
 
 public class DoctorController {
 

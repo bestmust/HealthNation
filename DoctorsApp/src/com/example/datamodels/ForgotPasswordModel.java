@@ -2,8 +2,6 @@ package com.example.datamodels;
 
 public class ForgotPasswordModel {
 
-	
-	
 	String email;
 
 	/**
@@ -14,11 +12,11 @@ public class ForgotPasswordModel {
 	}
 
 	/**
-	 * @param email the email to set
+	 * @param email
+	 *            the email to set
 	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 
 }

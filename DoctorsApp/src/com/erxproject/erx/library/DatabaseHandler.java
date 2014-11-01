@@ -2,13 +2,13 @@ package com.erxproject.erx.library;
 
 import java.util.HashMap;
 
-import com.example.dh.R;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.dh.R;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
