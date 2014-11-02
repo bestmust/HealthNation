@@ -22,6 +22,7 @@ public class PatientsLogin extends Fragment {
 
 	EditText patientsId;
 	Button find, newUser;
+	boolean isBeingDebugged = android.os.Debug.isDebuggerConnected();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,6 +83,14 @@ public class PatientsLogin extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
+
+		if (isBeingDebugged) {
+			PatientsParameterModel objPatientsParameterModel = new PatientsParameterModel();
+			objPatientsParameterModel.setPatientsId("b");
+
+			new PatientsProfileTask(getActivity())
+					.execute(objPatientsParameterModel);
+		}
 	}
 
 }

@@ -32,6 +32,7 @@ public class PrescriptionController {
 	String prescriptionExtension;
 	String debuggerExtension;
 	Gson gson = new Gson();
+	String className = "PrescriptionController";
 
 	public PrescriptionController(Context applicationContext) {
 		mContext = applicationContext.getApplicationContext();
@@ -56,6 +57,8 @@ public class PrescriptionController {
 				.getString(R.string.tag_get_patient_history)));
 		params.add(new BasicNameValuePair("patient_id", "" + patientId));
 		params.add(new BasicNameValuePair("doctor_id", "" + doctorId));
+
+		Log.d(className, params.toString());
 
 		json = jsonParser.getJSONFromUrl(site + prescriptionExtension + "?"
 				+ debuggerExtension, params);
@@ -106,6 +109,8 @@ public class PrescriptionController {
 			params.add(new BasicNameValuePair("person_id", "" + personId));
 			params.add(new BasicNameValuePair("doctor_id", "" + doctorId));
 
+			Log.d(className, params.toString());
+
 			json = jsonParser.getJSONFromUrl(site + prescriptionExtension + "?"
 					+ debuggerExtension, params);
 			if (Integer.parseInt(json.getString("success")) == 1) {
@@ -134,6 +139,8 @@ public class PrescriptionController {
 				.getString(R.string.tag_save_prescription)));
 		params.add(new BasicNameValuePair("history_id", "" + historyId));
 
+		Log.d(className, params.toString());
+
 		json = jsonParser.getJSONFromUrl(site + prescriptionExtension + "?"
 				+ debuggerExtension, params);
 		if (Integer.parseInt(json.getString("success")) == 1) {
@@ -155,6 +162,8 @@ public class PrescriptionController {
 				.getString(R.string.tag_get_symptoms)));
 		params.add(new BasicNameValuePair(mContext
 				.getString(R.string.key_history_id), "" + historyId));
+
+		Log.d(className, params.toString());
 
 		json = jsonParser.getJSONFromUrl(site + prescriptionExtension, params);
 
@@ -186,6 +195,8 @@ public class PrescriptionController {
 		params.add(new BasicNameValuePair(mContext
 				.getString(R.string.key_symptom), "" + symptom));
 
+		Log.d(className, params.toString());
+
 		json = jsonParser.getJSONFromUrl(site + prescriptionExtension, params);
 
 		try {
@@ -212,6 +223,8 @@ public class PrescriptionController {
 				.getString(R.string.tag_get_symptom_from_symptom_id)));
 		params.add(new BasicNameValuePair(mContext
 				.getString(R.string.key_symptom_id), "" + symptomId));
+
+		Log.d(className, params.toString());
 
 		json = jsonParser.getJSONFromUrl(site + prescriptionExtension, params);
 
@@ -249,6 +262,8 @@ public class PrescriptionController {
 		params.add(new BasicNameValuePair(mContext
 				.getString(R.string.key_history_id), "" + historyId));
 
+		Log.d(className, params.toString());
+
 		json = jsonParser.getJSONFromUrl(site + prescriptionExtension, params);
 
 		if (Integer.parseInt(json.getString("success")) == 1) {
@@ -281,6 +296,8 @@ public class PrescriptionController {
 		params.add(new BasicNameValuePair("parameter_type", "" + parameterType));
 		params.add(new BasicNameValuePair("value", "" + value));
 
+		Log.d(className, params.toString());
+
 		json = jsonParser.getJSONFromUrl(site + prescriptionExtension, params);
 
 		try {
@@ -306,6 +323,8 @@ public class PrescriptionController {
 		params.add(new BasicNameValuePair("tag", mContext
 				.getString(R.string.tag_get_parameter_from_parameter_id)));
 		params.add(new BasicNameValuePair("parameter_id", "" + parameterId));
+
+		Log.d(className, params.toString());
 
 		json = jsonParser.getJSONFromUrl(site + prescriptionExtension, params);
 
@@ -345,6 +364,8 @@ public class PrescriptionController {
 		params.add(new BasicNameValuePair(mContext
 				.getString(R.string.key_history_id), "" + historyId));
 
+		Log.d(className, params.toString());
+
 		json = jsonParser.getJSONFromUrl(site + prescriptionExtension, params);
 
 		if (Integer.parseInt(json.getString("success")) == 1) {
@@ -374,6 +395,8 @@ public class PrescriptionController {
 				.getString(R.string.key_history_id), "" + historyId));
 		params.add(new BasicNameValuePair("disease", "" + disease));
 
+		Log.d(className, params.toString());
+
 		json = jsonParser.getJSONFromUrl(site + prescriptionExtension, params);
 
 		try {
@@ -399,6 +422,8 @@ public class PrescriptionController {
 		params.add(new BasicNameValuePair("tag", mContext
 				.getString(R.string.tag_get_disease_diagnosed_from_id)));
 		params.add(new BasicNameValuePair("disease_id", "" + diseaseId));
+
+		Log.d(className, params.toString());
 
 		json = jsonParser.getJSONFromUrl(site + prescriptionExtension, params);
 
@@ -435,6 +460,8 @@ public class PrescriptionController {
 				"get_prescription_medicine_list"));
 		params.add(new BasicNameValuePair(mContext
 				.getString(R.string.key_history_id), "" + historyId));
+
+		Log.d(className, params.toString());
 
 		json = jsonParser.getJSONFromUrl(site + prescriptionExtension, params);
 
@@ -489,6 +516,8 @@ public class PrescriptionController {
 		else
 			params.add(new BasicNameValuePair("night", "N"));
 
+		Log.d(className, params.toString());
+
 		json = jsonParser.getJSONFromUrl(site + prescriptionExtension, params);
 
 		try {
@@ -515,6 +544,8 @@ public class PrescriptionController {
 				"get_prescription_medicine_from_id"));
 		params.add(new BasicNameValuePair("medicine_data_id", ""
 				+ medicineDataId));
+
+		Log.d(className, params.toString());
 
 		json = jsonParser.getJSONFromUrl(site + prescriptionExtension, params);
 
@@ -561,6 +592,8 @@ public class PrescriptionController {
 		String request = gson.toJson(params);
 		Log.d("getTestList request", request);
 
+		Log.d(className, params.toString());
+
 		json = jsonParser.getJSONFromUrl(site + prescriptionExtension, params);
 
 		if (Integer.parseInt(json.getString("success")) == 1) {
@@ -594,6 +627,8 @@ public class PrescriptionController {
 		String request = gson.toJson(params);
 		Log.d("saveTest request", request);
 
+		Log.d(className, params.toString());
+
 		json = jsonParser.getJSONFromUrl(site + prescriptionExtension, params);
 
 		try {
@@ -623,6 +658,8 @@ public class PrescriptionController {
 
 		String request = gson.toJson(params);
 		Log.d("getTest request", request);
+
+		Log.d(className, params.toString());
 
 		json = jsonParser.getJSONFromUrl(site + prescriptionExtension, params);
 

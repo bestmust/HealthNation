@@ -273,6 +273,5 @@ public class PrintAdapter extends PrintDocumentAdapter {
 					titleBaseLine += 22, paint);
 			j++;
 		}
-
 	}
 }

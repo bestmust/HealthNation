@@ -2,11 +2,14 @@ package com.example.dh;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 @SuppressLint("NewApi")
@@ -14,6 +17,7 @@ public class PatientsProfileFragment extends Fragment {
 
 	TextView textViewName, textViewAddress, textViewLastLogin,
 			textViewContactInfo, textViewnofovisits;
+	SharedPreferences sp;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -36,6 +40,10 @@ public class PatientsProfileFragment extends Fragment {
 		textViewLastLogin.setTypeface(sofiaPro);
 		textViewnofovisits.setTypeface(sofiaPro);
 		textViewName.setTypeface(sofiaPro);
+
+		sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		textViewName.setText(sp.getString(getString(R.string.sp_patient_name),
+				"Anup Rathi"));
 
 		return v;
 	}

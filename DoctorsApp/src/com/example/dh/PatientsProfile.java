@@ -16,6 +16,7 @@ import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 import com.erxproject.erx.controller.PrescriptionController;
 import com.erxproject.erx.model.Prescription;
@@ -25,6 +26,7 @@ import com.example.dh.CountryListFragmentPatient.ListFragmentItemClickListener;
 public class PatientsProfile extends Activity implements
 		ListFragmentItemClickListener {
 
+	EditText patientNameEditText;
 	PrescriptionController pc;
 	SharedPreferences sp;
 	Prescription prescription;
@@ -38,8 +40,9 @@ public class PatientsProfile extends Activity implements
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
 
+		sp = PreferenceManager
+				.getDefaultSharedPreferences(getApplicationContext());
 		// initialize the prescription from the server;
-		sp = PreferenceManager.getDefaultSharedPreferences(this);
 		pc = new PrescriptionController(this);
 		try {
 			prescription = pc

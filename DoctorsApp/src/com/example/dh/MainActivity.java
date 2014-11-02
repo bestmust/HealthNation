@@ -6,9 +6,12 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.KeyEvent;
 
@@ -18,6 +21,7 @@ import com.example.dh.CountryListFragment.ListFragmentItemClickListener;
 public class MainActivity extends Activity implements
 		ListFragmentItemClickListener {
 
+	SharedPreferences sp;
 	Uri imageUri;
 
 	@Override
@@ -110,6 +114,11 @@ public class MainActivity extends Activity implements
 
 			case 4:
 				// Login
+				sp = PreferenceManager
+						.getDefaultSharedPreferences(getApplicationContext());
+				Editor ed = sp.edit();
+				ed.clear();
+				ed.apply();
 				Intent i = new Intent(MainActivity.this, Login.class);
 				startActivity(i);
 				// overridePendingTransition(R.anim.slide_up, R.anim.side_down);

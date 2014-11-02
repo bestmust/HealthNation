@@ -78,6 +78,7 @@ public class LoginTask extends AsyncTask<LoginModel, String, String> {
 			ed.putInt(mLogin.getString(R.string.sp_doctor_doctor_id),
 					response.user.doctor_id);
 			ed.apply();
+
 			d = Doctor.get(mLogin);
 			d.setName(response.user.name);
 			// mLogin.overridePendingTransition(R.anim.side_down,

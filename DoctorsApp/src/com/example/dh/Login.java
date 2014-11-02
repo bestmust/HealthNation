@@ -41,8 +41,6 @@ public class Login extends Activity implements OnClickListener {
 		textViewForgot = (TextView) findViewById(R.id.textViewForgot);
 		textViewLogin = (TextView) findViewById(R.id.textViewLogin);
 
-		sp = PreferenceManager.getDefaultSharedPreferences(Login.this);
-
 		username.setTypeface(sofiaPro);
 		password.setTypeface(sofiaPro);
 		login.setTypeface(sofiaPro);
@@ -52,6 +50,18 @@ public class Login extends Activity implements OnClickListener {
 		registration.setOnClickListener(this);
 		textViewLogin.setTypeface(sofiaPro);
 		textViewForgot.setOnClickListener(this);
+
+		String usernameString, passwordString;
+		sp = PreferenceManager.getDefaultSharedPreferences(Login.this);
+		if ((usernameString = sp.getString(
+				getString(R.string.sp_doctor_user_name), null)) != null) {
+			passwordString = sp.getString(
+					getString(R.string.sp_doctor_password), null);
+			LoginModel objLoginModel = new LoginModel();
+			objLoginModel.setUserName(usernameString);
+			objLoginModel.setPassword(passwordString);
+			new LoginTask(Login.this).execute(objLoginModel);
+		}
 	}
 
 	@Override

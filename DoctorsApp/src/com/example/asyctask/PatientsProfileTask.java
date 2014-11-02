@@ -92,7 +92,7 @@ public class PatientsProfileTask extends
 		pd = new ProgressDialog(activity);
 		pd.setMessage("Please Wait..");
 		pd.setCancelable(false);
-		// pd.show();
+		pd.show();
 	}
 
 	@Override
